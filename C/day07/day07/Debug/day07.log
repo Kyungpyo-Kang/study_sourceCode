@@ -1,0 +1,4 @@
+﻿  megabox.c
+c:\c_1800_kpk\workspace\day07\day07\megabox.c(39): warning C4244: '함수': 'time_t'에서 'unsigned int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  day07.vcxproj -> C:\C_1800_kpk\workspace\day07\Debug\day07.exe
+  day07.vcxproj -> C:\C_1800_kpk\workspace\day07\Debug\day07.pdb (Full PDB)

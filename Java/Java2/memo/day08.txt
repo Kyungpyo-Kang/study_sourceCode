@@ -1,0 +1,9 @@
+파일 입출력
+
+	Writer(입력)
+		BufferedWriter : 버퍼를 사용해서 파일 작성
+		FileWriter : 해당 경로에 파일 가져오기(없으면 생성)
+
+	Reader(출력)
+		BufferedReader : 버퍼를 사용해서 파일 읽기
+		FileReader : 해당 경로에 파일 가져오기(없으면 오류)

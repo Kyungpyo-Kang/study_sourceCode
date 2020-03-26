@@ -1,0 +1,113 @@
+DCL(Data Control Language)
+	데이터 제어 언어
+
+권한(GRANT, REVOKE)
+유저(SYS, SYSTEM, 일반)
+	SYS : DBA 기능을 사용할 수 있는 계정
+	SYSTEM : 데이터베이스의 모든 권한
+	일반 : HR, SCOTT,....(우리가 만들어낸 일반적인 계정)
+----------------------------------------------------------------------------------
+SQL>SQLPLUS SYSTEM/1234
+SQL>SHOW USER
+SQL>SELECT USERNAME FROM DBA_USERS;
+
+#SCOTT계정 삭제
+#CASCADE를 붙여야지만 통채로 날아간다.
+SQL>DROP USER SCOTT CASCADE;
+
+SQL>CONN SCOTT/TIGER
+SQL> CREATE USER BABY IDENTIFIED BY BABY;
+ORA-01031: insufficient privileges
+#권한이 불충분하다.
+
+TableSpace
+	테이블이 저장될 공간
+
+TABLESPACE를 먼저 만들고 TABLE을 생성
+
+SQL> SELECT TABLESPACE_NAME, STATUS, CONTENTS FROM DBA_TABLESPACES;
+
+SQL> SELECT FILE_NAME, TABLESPACE_NAME, AUTOEXTENSIBLE FROM DBA_DATA_FILES;
+
+SQL> CREATE TABLESPACE BABY DATAFILE'C:\oraclexe\app\oracle\oradata\XE\BABY.DBF'SIZE 200M AUTOEXTEND ON NEXT 5M MAXSIZE 300M;
+
+SQL> GRANT CREATE USER TO SCOTT;
+SQL> CONN SCOTT/TIGER
+SQL> CREATE USER BABY IDENTIFIED BY BABY;
+User created.
+
+SQL> GRANT CREATE SESSION TO BABY;
+SQL> CONN BABY/BABY
+
+SQL> CONN SYSTEM/1234
+SQL> ALTER USER BABY DEFAULT TABLESPACE BABY;
+SQL> ALTER USER BABY TEMPORARY TABLESPACE TEMP;
+
+테이블 스페이스 할당량 설정
+SQL> ALTER USER BABY DEFAULT TABLESPACE BABY QUOTA UNLIMITED ON BABY
+
+SQL>CREATE TABLE TEST001(ID VARCHAR2(10), PW VARCHAR2(10), AGE NUMBER CONSTRAINTS BABY_PK PRIMARY KEY(ID));
+
+SQL>CREATE TABLE COPY AS SELECT * FROM HR.EMP;
+
+SQL>CONN HR/hr
+SQL>GRANT SELECT ON EMP TO BABY;
+SQL>GRANT UPDATE ON EMP TO BABY;
+
+SQL>CONN BABY/BABY
+SQL>CREATE TABLE COPY AS SELECT * FROM HR.EMP;
+SQL>UPDATE HR.EMP SET SAL = 9000 WHERE ENAME = 'SMITH'
+
+DBEAVER에서 SQL>로 작성한 DML을 확인하고자 할 때에는
+반드시 cmd창에서 원하는 계정으로 다시 CONN 하거나, 나가면 된다.
+-----------------------------------------------------------------------------------------
+1. HR계정에서 계정 한 개 생성(CREATE USER)
+2. SYSTEM계정에서 만든 계정에 CREATE SESSION 권한 부여
+3. SYSTEM계정에서 만든 계정에 CREATE TABLE 권한 부여
+4. TABLESPACE 만든 계정명과 동일하게 만들기
+5. 만든 계정 TABLESPACE에 등록(DEFAULT)
+6. 만든 계정 TABLESPACE TEMPORARY에 등록(TEMPORARY)
+7. 만든 계정 TABLESPACE에 할당량 설정
+8. 테이블 생성(테이블명 TEST)
+9. HR계정에 있는 PLAYER테이블 복사해서 테이블 생성(AS)
+10. NICKNAME이 NULL인 선수 모두 본인 이름으로 설정
+11. DBEVER에서 쿼리문으로 결과 확인
+
+ROLE : 권한이 뭉쳐있는 상태
+CONNECT, RESOURCE, DBA
+
+CREATE ROLE 롤이름;
+GRANT 권한명, 권한명,.... TO 롤이름;
+GRANT 롤이름 TO 계정명;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,5 @@
+﻿  functionTask.c
+c:\c_1800_kpk\workspace\day14\day14\functiontask.c(39): warning C4090: '함수': 'const' 한정자가 서로 다릅니다.
+c:\c_1800_kpk\workspace\day14\day14\functiontask.c(18): warning C4172: 지역 변수 또는 임시: result의 주소를 반환하고 있습니다.
+  day14.vcxproj -> C:\C_1800_kpk\workspace\day14\Debug\day14.exe
+  day14.vcxproj -> C:\C_1800_kpk\workspace\day14\Debug\day14.pdb (Full PDB)
